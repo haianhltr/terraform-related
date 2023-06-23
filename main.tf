@@ -15,7 +15,7 @@ resource "aws_instance" "example" {
   user_data = <<-EOF
               #!/bin/bash
               echo "Hello, World" > index.html
-              nohup busybox httpd -f -p 8080 &
+              nohup busybox httpd -f -p ${var.server_port} &
               EOF
 
 
@@ -40,4 +40,11 @@ variable "server_port" {
     description = "The port the server will use for HTTP requests"
     type = number
     default = 8080
+}
+
+
+#provide the IP address as an output variable:
+output "public_ip" {
+      value       = aws_instance.example.public_ip
+      description = "The public IP address of the web server"
 }
