@@ -22,3 +22,15 @@ resource "aws_instance" "example" {
         Name = "terraform-example"
     }
 }
+
+# create a security group to allow incoming/outgoing traffic from EC2 Instances
+
+resource "aws_security_group" "instance" { 
+    name = "terraform-example-instance"
+    ingress {
+        from_port =8080
+        to_port = 8080 
+        protocol = "tcp" 
+        cidr_blocks = ["0.0.0.0/0"]
+} 
+}
